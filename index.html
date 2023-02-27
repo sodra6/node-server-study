@@ -2,7 +2,7 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="X-UA-Compatible" content="Chrome" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thank you!</title>
   </head>
@@ -13,11 +13,17 @@
     <script>
       function test() {
         const name = document.getElementById("name").value;
-        fetch(`http://localhost:8080/user/${name}`)
+        fetch(`https://port-0-node-server-study-r8xoo2mleme9svb.sel3.cloudtype.app/user/${name}`, {
+          //fetch(`/user/${name}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
           .then(res => res.json())
           .then(data => {
             console.log(data);
-            document.getElementById("asdf").innerHTML = data;
+            document.getElementById("asdf").innerHTML = data.data[0].usename;
           });
       }
     </script>
