@@ -13,12 +13,13 @@
     <script>
       function test() {
         const name = document.getElementById("name").value;
-        fetch(`https://port-0-node-server-study-r8xoo2mleme9svb.sel3.cloudtype.app/user/${name}`, {
-          //fetch(`/user/${name}`, {
+        //fetch(`https://port-0-node-server-study-r8xoo2mleme9svb.sel3.cloudtype.app/user/${name}`, {
+        fetch(`/user/${name}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
+          body: JSON.stringify({ usename: name }),
         })
           .then(res => res.json())
           .then(data => {
