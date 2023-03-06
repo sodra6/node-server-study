@@ -16,8 +16,10 @@ app
   .get((req, res) => {
     console.log("getProjectList");
     api.pg.query("select t1.prjct_nm, t2.* from project_list t1, project_info t2 where t1.prjct_id = t2.prjct_id", (err, result) => {
-      if (err) res.sendStatus(500);
-      else res.status(200).json(result.rows);
+      if (err) {
+        console.log("query err");
+        res.sendStatus(500);
+      } else res.status(200).json(result.rows);
     });
   })
   .post((req, res) => {
