@@ -1,29 +1,20 @@
+//api통신 순서 :  server.js(미들웨어) -> db.js
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const api = require("./db.js");
 
 app.use(cors());
+app.use(express.json());
 
-app.listen(3000, () => {
-  console.log("Listening at 3000");
+app.listen(8080, () => {
+  console.log("Listening at 8080");
 });
 
-app.get("/", (req, res) => {
-  //res.send("기본페이지");
-  res.sendFile(__dirname + "/index.html");
+app.get("/getProjectList", (req, res) => {
+  console.log("getProjectList");
+  api.pg.query("select t1.prjct_nm, t2.* from project_list t1, project_info t2 where t1.prjct_id = t2.prjct_id", (err, result) => {
+    if (err) res.sendStatus(500);
+    else res.status(200).json(result.rows);
+  });
 });
-
-//파라미터를 받을 떈 :(콜론) 을 쓰고 변수작성
-app.get("/user/:id", (req, res) => {
-  const { id } = req.params;
-  console.log({ userId: id });
-  res.json({ userId: id });
-});
-
-//axios or fetch를 사용해 body에 담겨져 오는 것
-/* app.post("/user/:id", (req, res) => {
-  const q = req.params;
-  res.json({ userId: q.id });
-  console.log("asdff : " + q);
-}); */
-require("./router")(app);
