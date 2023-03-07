@@ -9,6 +9,7 @@ app.use(
     origin: "*",
   })
 );
+app.use(express.static("build"));
 app.use(express.json());
 
 app.listen(3000, () => {
