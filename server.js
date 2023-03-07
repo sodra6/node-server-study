@@ -4,7 +4,11 @@ const cors = require("cors");
 const app = express();
 const api = require("./db.js");
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 app.use(express.json());
 
 app.listen(3000, () => {
