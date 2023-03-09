@@ -52,7 +52,7 @@ app
   });
 
 app
-  .route("/api/menuList")
+  .route("/api/mnuList")
   .get((req, res) => {
     api.pg.query("select * from mnu_list", (err, result) => {
       if (err) {
