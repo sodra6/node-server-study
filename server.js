@@ -46,15 +46,13 @@ app
     });
   })
   .post((req, res) => {
-    api.pg.query("select t1.prjct_nm, t2.* from project_list t1, project_info t2 where t1.prjct_id = t2.prjct_id", (err, result) => {
-      console.log("post");
-    });
+    console.log("post");
   });
 
 app
   .route("/api/mnuList")
   .get((req, res) => {
-    api.pg.query("select * from mnu_list", (err, result) => {
+    api.pg.query("select * from mnu_info", (err, result) => {
       if (err) {
         console.log("query err");
         res.sendStatus(500);
@@ -62,7 +60,5 @@ app
     });
   })
   .post((req, res) => {
-    api.pg.query("select t1.prjct_nm, t2.* from project_list t1, project_info t2 where t1.prjct_id = t2.prjct_id", (err, result) => {
-      console.log("post");
-    });
+    console.log("post");
   });
