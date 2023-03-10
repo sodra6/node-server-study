@@ -12,19 +12,26 @@ app.use(
 app.use(express.static("build"));
 app.use(express.json());
 
-app.listen(3000, () => {
-  console.log("Listening at 3000");
+app.listen(3005, () => {
+  console.log("Listening at 3005");
 });
 
 app
   .route("/api/projectList")
   .get((req, res) => {
-    api.pg.query("select t1.prjct_nm, t2.* from project_list t1, project_info t2 where t1.prjct_id = t2.prjct_id", (err, result) => {
-      if (err) {
-        console.log("query err");
-        res.sendStatus(500);
-      } else res.status(200).json(result.rows);
-    });
+    console.log(req.query);
+    api.pg.query(
+      `select t1.prjct_nm, t2.* 
+    from project_list t1, project_info t2 
+    where t1.prjct_id = t2.prjct_id 
+    and t1.skills like '%${req.query.language}%'`,
+      (err, result) => {
+        if (err) {
+          console.log("query err");
+          res.sendStatus(500);
+        } else res.status(200).json(result.rows);
+      }
+    );
   })
   .post((req, res) => {
     api.pg.query("select t1.prjct_nm, t2.* from project_list t1, project_info t2 where t1.prjct_id = t2.prjct_id", (err, result) => {
